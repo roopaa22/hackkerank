@@ -1,0 +1,65 @@
+import time
+name = input("What is your name? ")
+print ("Hello, " + name, "Time to play hangman!")
+time.sleep(1)
+print ("Start guessing...")
+time.sleep(0.5)
+word = ("sand")
+guesses = ''
+turns = 10
+while turns > 0:
+ failed = 0
+ for char in word:
+ if char in guesses:
+ print (char,end=""),
+ else:
+ print ("_",end=""),
+ failed += 1
+ if failed == 0:
+ print ("You won")
+ break
+ guess = input("guess a character:")
+ guesses += guess
+
+ if guess not in word:
+ turns -= 1
+ print ("Wrong")
+ print ("You have", + turns, 'more guesses' )
+
+ if turns == 0:
+ print ("You Lose" )
+
+Output:
+
+What is your name? Hemanth
+Hello, Hemanth Time to play hangman!
+Start guessing...
+____guess a character:h
+Wrong
+You have 9 more guesses
+____guess a character:e
+Wrong
+You have 8 more guesses
+____guess a character:a
+_a__guess a character:n
+_an_guess a character:y
+Wrong
+You have 7 more guesses
+_an_guess a character:s
+san_guess a character:k
+Wrong
+You have 6 more guesses
+san_guess a character:l
+Wrong
+You have 5 more guesses
+san_guess a character:p
+Wrong
+You have 4 more guesses
+san_guess a character:r
+Wrong
+You have 3 more guesses
+san_guess a character:j
+Wrong
+You have 2 more guesses
+san_guess a character:d
+sandYou won
