@@ -1,0 +1,87 @@
+class Book:
+    def _init_(self, title, author, price):
+        self.title = title
+        self.author = author
+        self.price = price
+
+    def _str_(self):
+        return f"Title: {self.title}, Author: {self.author}, Price: ${self.price:.2f}"
+
+class Bookstore:
+    def _init_(self):
+        self.books = []
+        self.cart = []
+
+    def add_book(self, book):
+        self.books.append(book)
+     def list_books(self):
+        print("Available Books:")
+        for index, book in enumerate(self.books, start=1):
+            print(f"{index}. {book}")
+
+    def add_to_cart(self, book_index):
+        if 0 < book_index <= len(self.books):
+            self.cart.append(self.books[book_index - 1])
+            print(f"Added to cart: {self.books[book_index - 1].title}")
+        else:
+            print("Invalid book index.")
+
+    def view_cart(self):
+        if not self.cart:
+            print("Your cart is empty.")
+            return
+        print("Your Cart:")
+        total = 0
+        for book in self.cart:
+            print(book)
+            total += book.price
+        print(f"Total: ${total:.2f}")
+
+    def checkout(self):
+        if not self.cart:
+            print("Your cart is empty. Add some books to your cart before checking out.")
+            return
+        total = sum(book.price for book in self.cart)
+        print("Checking out...")
+        print(f"Total amount to be paid: ${total:.2f}")
+        self.cart = []  # Clear the cart after checkout
+        print("Thank you for your purchase!")
+
+def main():
+    bookstore = Bookstore()
+    
+    # Adding some books to the bookstore
+    bookstore.add_book(Book("1984", "George Orwell", 9.99))
+    bookstore.add_book(Book("To Kill a Mockingbird", "Harper Lee", 7.99))
+    bookstore.add_book(Book("The Great Gatsby", "F. Scott Fitzgerald", 10.99))
+
+    while True:
+        print("\n1. List Books")
+        print("2. Add Book to Cart")
+        print("3. View Cart")
+        print("4. Checkout")
+        print("5. Exit")
+
+        choice = input("Enter your choice (1-5): ")
+        
+        if choice == '1':
+            bookstore.list_books()
+        elif choice == '2':
+            try:
+                book_index = int(input("Enter the book index to add to cart: "))
+                bookstore.add_to_cart(book_index)
+            except ValueError:
+                print("Invalid input. Please enter a number.")
+        elif choice == '3':
+            bookstore.view_cart()
+        elif choice == '4':
+            bookstore.checkout()
+        elif choice == '5':
+            print("Exiting the bookstore. Have a great day!")
+            break
+        else:
+            print("Invalid choice. Please select a valid option.")
+
+if _name_ == "_main_":
+    main()
+    
